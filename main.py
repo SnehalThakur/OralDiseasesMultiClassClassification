@@ -8,13 +8,14 @@ from PIL import Image, ImageOps  # Streamlit works with PIL library very easily 
 import cv2
 import os
 
-model_path = '.\\pretrainedModel\\pretrained_custom_model.h5py'
+# model_path = '.\\pretrainedModel\\pretrained_custom_model.h5py'
+model_path = 'pretrainedModel/pretrained_model.h5py'
 
 
 def prediction(savedModel, inputImage):
     test_image = image.load_img(
         inputImage,
-        target_size=(300, 300))
+        target_size=(256, 256))
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
     result = savedModel.predict(test_image)
@@ -31,7 +32,7 @@ def save_uploadedfile(uploadedfile, path):
 
 
 st.title("Oral Diseases Prediction")
-upload = st.file_uploader('Upload a food image')
+upload = st.file_uploader('Upload an input image')
 
 if upload is not None:
     file_bytes = np.asarray(bytearray(upload.read()), dtype=np.uint8)
